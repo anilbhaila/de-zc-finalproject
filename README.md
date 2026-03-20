@@ -67,3 +67,22 @@ Spark version: 4.1.1
 |  8|
 |  9|
 +---+
+
+kestra: http://localhost:8080
+pgAdmin: http://localhost:8085
+
+Python producer/consumer connects at Kafka protocol 
+http://localhost:9092
+
+Flink dashboard: http://localhost:8081
+
+> docker-compose ps
+lists all process started by docker-compose
+
+
+To submit Job to Flink Job Manager
+
+> docker compose exec jobmanager ./bin/flink run \
+    -py /opt/src/job/pass_through_job.py \
+    --pyFiles /opt/src -d
+
