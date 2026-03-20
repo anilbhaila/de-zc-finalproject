@@ -33,10 +33,10 @@ def create_processed_events_sink_postgres(t_env):
             pickup_datetime TIMESTAMP
         ) WITH (
             'connector' = 'jdbc',
-            'url' = 'jdbc:postgresql://postgres:5432/postgres',
+            'url' = 'jdbc:postgresql://pgdatabase:5432/ny_traffic',
             'table-name' = '{table_name}',
-            'username' = 'postgres',
-            'password' = 'postgres',
+            'username' = 'root',
+            'password' = 'root',
             'driver' = 'org.postgresql.Driver'
         );
         """

@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from kafka import KafkaProducer
-from streaming.notebooks.models import Ride
+from models import Ride
 
 # Top pickup locations from the actual NYC yellow taxi data.
 # PULocationID is a taxi zone ID (1-263) defined by the NYC TLC.

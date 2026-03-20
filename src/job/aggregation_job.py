@@ -37,10 +37,10 @@ def create_events_aggregated_sink(t_env):
             PRIMARY KEY (window_start, PULocationID) NOT ENFORCED
         ) WITH (
             'connector' = 'jdbc',
-            'url' = 'jdbc:postgresql://postgres:5432/postgres',
+            'url' = 'jdbc:postgresql://pgdatabase:5432/ny_traffic',
             'table-name' = '{table_name}',
-            'username' = 'postgres',
-            'password' = 'postgres',
+            'username' = 'root',
+            'password' = 'root',
             'driver' = 'org.postgresql.Driver'
         );
         """
