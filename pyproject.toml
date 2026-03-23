@@ -9,6 +9,8 @@ dependencies = [
     "psycopg-binary>=3.3.3",
     "psycopg2-binary>=2.9.11",
     "pyarrow>=19.0.0",
+    "python-dotenv>=1.2.2",
+    "sodapy>=2.2.0",
 ]
 
 [dependency-groups]
