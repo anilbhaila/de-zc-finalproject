@@ -69,9 +69,33 @@ def ny_traffic_events_pipeline():
             timestamp = datetime.now().isoformat()
             for event in ny_traffic_events:
                 # Add timestamp
-                event['ingestion_time'] = timestamp
-                
-            
+                clean_data = {}
+                clean_data['ID'] = event.get('ID', str(uuid.uuid4()))
+                clean_data['ingestion_time'] = timestamp
+                clean_data['RegionName'] = event.get('RegionName', 'Unknown')
+                clean_data['CountyName'] = event.get('CountyName', 'Unknown')
+                clean_data['Severity'] = event.get('Severity', 'Unknown')
+                clean_data['RoadwayName'] = event.get('RoadwayName', 'Unknown')
+                clean_data['DirectionOfTravel'] = event.get('DirectionOfTravel', 'Unknown')
+                clean_data['Description'] = event.get('Description', 'Unknown')
+                clean_data['Location'] = event.get('Location', 'Unknown')
+                clean_data['LanesAffected'] = event.get('LanesAffected', 'Unknown')
+                clean_data['PrimaryLocation'] = event.get('PrimaryLocation', 'Unknown')
+                clean_data['SecondaryLocation'] = event.get('SecondaryLocation', 'Unknown')
+                clean_data['FirstArticleCity'] = event.get('FirstArticleCity', 'Unknown')
+                clean_data['SecondCity'] = event.get('SecondCity', 'Unknown')
+                clean_data['EventType'] = event.get('EventType', 'Unknown')
+                clean_data['EventSubType'] = event.get('EventSubType', 'Unknown')
+                clean_data['LastUpdated'] = event.get('LastUpdated', 'Unknown')
+                clean_data['Latitude'] = event.get('Latitude', 'Unknown')
+                clean_data['Longitude'] = event.get('Longitude', 'Unknown')
+                clean_data['PlannedEndDate'] = event.get('PlannedEndDate', 'Unknown')
+                clean_data['Reported'] = event.get('Reported', 'Unknown')
+                clean_data['StartDate'] = event.get('StartDate', 'Unknown')
+                clean_data['processing_time'] = event.get('processing_time', None)
+                event.clear()
+                event.update(clean_data)
+
             # Get current time for filename - use UTC time for consistency
             current_time = datetime.now().strftime('%Y%m%d-%H%M%S')
             unique_id = str(uuid.uuid4())[:8]
@@ -125,27 +149,39 @@ def ny_traffic_events_pipeline():
         # Create schema file
         schema_json = {
             "BigQuery Schema": [
-                {"name": "ingestion_time", "type": "TIMESTAMP", "mode": "REQUIRED"},
                 {"name": "ID", "type": "STRING", "mode": "REQUIRED"},
                 {"name": "RegionName", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "CountyName", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "Severity", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "RoadwayName", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "DirectionOfTravel", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "Description", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "Location", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "LanesAffected", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "PrimaryLocation", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "SecondaryLocation", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "FirstArticleCity", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "SecondCity", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "EventType", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "EventSubType", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "LastUpdated", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "Latitude", "type": "FLOAT", "mode": "NULLABLE"},
                 {"name": "Longitude", "type": "FLOAT", "mode": "NULLABLE"},
-                {"name": "LastUpdated", "type": "INTEGER", "mode": "NULLABLE"},
-                {"name": "EventType", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "LanesAffected", "type": "STRING", "mode": "NULLABLE"}
+                {"name": "PlannedEndDate", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "Reported", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "StartDate", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "ingestion_time", "type": "TIMESTAMP", "mode": "REQUIRED"},
+                {"name": "processing_time", "type": "TIMESTAMP", "mode": "NULLABLE"}
             ]
         }
         
         # Upload schema file
-        schema_blob = bucket.blob("schemas/carpark_schema.json")
+        schema_blob = bucket.blob("schemas/ny_traffic_events_schema.json")
         schema_blob.upload_from_string(json.dumps(schema_json))
         
         return {
             "transform_path": f"gs://{bucket_name}/scripts/transform.js",
-            "schema_path": f"gs://{bucket_name}/schemas/carpark_schema.json"
+            "schema_path": f"gs://{bucket_name}/schemas/ny_traffic_events_schema.json"
         }
     
     # Step 3: Use Dataflow template to load GCS data to BigQuery

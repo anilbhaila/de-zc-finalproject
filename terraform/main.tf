@@ -65,7 +65,7 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
 
   time_partitioning {
     type  = "DAY"
-    field = "LastUpdated"
+    field = "ingestion_time"
   }
 
   schema = <<EOF
@@ -77,6 +77,11 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
   },
   {
     "name": "RegionName",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "CountyName",
     "type": "STRING",
     "mode": "NULLABLE"
   },
@@ -111,11 +116,6 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
     "mode": "NULLABLE"
   },
   {
-    "name": "LanesStatus",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
     "name": "PrimaryLocation",
     "type": "STRING",
     "mode": "NULLABLE"
@@ -146,13 +146,8 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
     "mode": "NULLABLE"
   },
   {
-    "name": "MapEncodedPolyline",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
     "name": "LastUpdated",
-    "type": "TIMESTAMP",
+    "type": "STRING",
     "mode": "NULLABLE"
   },
   {
@@ -181,44 +176,9 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
     "mode": "NULLABLE"
   },
   {
-    "name": "Schedule",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "ScheduleScheduleId",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "ScheduleStart",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "ScheduleEnd",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "ScheduleContinuous",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "ScheduleActiveDays",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "ScheduleImpact",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
     "name": "ingestion_time",
     "type": "TIMESTAMP",
-    "mode": "NULLABLE"
+    "mode": "REQUIRED"
   },
   {
     "name": "processing_time",

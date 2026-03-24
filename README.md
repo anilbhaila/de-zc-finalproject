@@ -216,3 +216,27 @@ fetch_api_to_gcs successful
 prepare_transform_script successful
 start_gcs_to_bigquery job submitted to google Dataflow Jobs successfully but due to some issue in JSON data, job failed.
 clean_duplicate_data successful
+
+
+event['RegionName'] = event.get('RegionName', 'Unknown')
+event['CountyName'] = event.get('CountyName', 'Unknown')
+event['Severity'] = event.get('Severity', 'Unknown')
+event['RoadwayName'] = event.get('RoadwayName', 'Unknown')
+event['DirectionOfTravel'] = event.get('DirectionOfTravel', 'Unknown')
+event['Description'] = event.get('Description', 'Unknown')
+event['Location'] = event.get('Location', 'Unknown')
+event['LanesAffected'] = event.get('LanesAffected', 'Unknown')
+event['LanesStatus'] = event.get('LanesStatus', 'Unknown')
+event['PrimaryLocation'] = event.get('PrimaryLocation', 'Unknown')
+event['SecondaryLocation'] = event.get('SecondaryLocation', 'Unknown')
+event['FirstArticleCity'] = event.get('FirstArticleCity', 'Unknown')
+event['SecondCity'] = event.get('SecondCity', 'Unknown')
+event['EventType'] = event.get('EventType', 'Unknown')
+event['EventSubType'] = event.get('EventSubType', 'Unknown')
+event['LastUpdated'] = event.get('LastUpdated', 'Unknown')
+event['Latitude'] = event.get('Latitude', 'Unknown')
+event['Longitude'] = event.get('Longitude', 'Unknown')
+event['PlannedEndDate'] = event.get('PlannedEndDate', 'Unknown')
+event['Reported'] = event.get('Reported', 'Unknown')
+event['StartDate'] = event.get('StartDate', 'Unknown')
+event['processing_time'] = event.get('processing_time', None)
