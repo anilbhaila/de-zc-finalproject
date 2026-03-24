@@ -154,3 +154,35 @@ Output:
  Command:
  > docker exec -it <RedPanda Container ID> rpk topic delete ny-traffic-events
  > docker exec -it 777de7adc127 rpk topic delete ny-traffic-events
+
+
+ # Airflow Setup
+ > pwd
+ /home/ani.bhai.yt2022/de-zc-finalproject/orchestration
+
+ > mkdir dags
+ > mkdir logs
+ > mkdir terraform
+ > cd terraform
+ > mkdir keys
+
+> docker compose up
+
+airflow-init will fail due to permission issue in ./logs folder.
+> ls
+Dockerfile  dags  docker-compose.yaml  logs  plugins  requirements.txt  terraform
+
+dags logs plugins terraform folders are created because they are mapped in docker-compose file.
+
+> pwd
+> /home/ani.bhai.yt2022/de-zc-finalproject/orchestration
+> sudo chown -R 50000:0 ./logs 
+> sudo chmod -R 775 ./logs
+
+This will fix the permission issue and airflow will successfully run
+
+Add Port 8085 to do PortForwarding in VS Code.
+airflow web UI can be reached at localhost:8085
+
+Airflow setup successfully.
+

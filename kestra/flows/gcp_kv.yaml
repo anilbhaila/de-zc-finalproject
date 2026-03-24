@@ -1,0 +1,33 @@
+id: gcp_kv
+namespace: de-zc-finalproject
+
+tasks:
+  - id: gcp_project_id
+    type: io.kestra.plugin.core.kv.Set
+    key: GCP_PROJECT_ID
+    kvType: STRING
+    value: dtc-ab-de-2026
+
+  - id: gcp_location
+    type: io.kestra.plugin.core.kv.Set
+    key: GCP_LOCATION
+    kvType: STRING
+    value: us-south1
+
+  - id: gcp_bucket_name
+    type: io.kestra.plugin.core.kv.Set
+    key: GCP_BUCKET_NAME
+    kvType: STRING
+    value: ny_traffic_events
+
+  - id: gcp_dataset_raw
+    type: io.kestra.plugin.core.kv.Set
+    key: GCP_DATASET_RAW
+    kvType: STRING
+    value: ny_traffic_events_raw
+
+  - id: gcp_creds
+    type: io.kestra.plugin.core.kv.Set
+    key: GCP_CREDS
+    kvType: STRING
+    value: "Paste your GCP credentials here"  

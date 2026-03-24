@@ -212,3 +212,8 @@ __marimo__/
 .terraform/
 .terraform.lock.hcl
 data/
+
+# Airflow
+orchestration/logs/
+orchestration/plugins/
+orchestration/terraform/
