@@ -186,3 +186,33 @@ airflow web UI can be reached at localhost:8085
 
 Airflow setup successfully.
 
+Created ny_traffic_events_dag.py file
+In Airflow create Variables
+Admin => Variables => Click +
+Key=bucket_name
+Value=ny_traffic_events
+
+Key=location
+Value=us-south1
+
+Key=ny_traffic_api_key
+Value=
+
+Key=project_id
+Value=dtc-ab-de-2026
+
+Key=svc_AccountEmail
+Value=
+
+Also we need to add Connections conn Id:
+Go to Admin > Connections > Click + 
+connection Id: google_cloud_default
+Connection Type: Google Cloud
+Project Id: dtc-ab-de-2026
+Keyfile JSON: upload your GCP-CREDS.json
+
+After adding Connection: Jobs is successfully submitted to google Dataflow Jobs
+fetch_api_to_gcs successful
+prepare_transform_script successful
+start_gcs_to_bigquery job submitted to google Dataflow Jobs successfully but due to some issue in JSON data, job failed.
+clean_duplicate_data successful
