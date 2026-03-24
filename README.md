@@ -149,3 +149,8 @@ Output:
  > docker compose down -v
 
  Finally all these commands are working.
+
+
+ Command:
+ > docker exec -it <RedPanda Container ID> rpk topic delete ny-traffic-events
+ > docker exec -it 777de7adc127 rpk topic delete ny-traffic-events

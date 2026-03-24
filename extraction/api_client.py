@@ -8,6 +8,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 from kafka import KafkaProducer
 
+from models import event_from_row, event_serializer
+
 class NY_Traffic_Events_API_Client:
     """
     Client to interact with the NYC Traffic Events API.
@@ -155,6 +157,52 @@ class NY_Traffic_Events_API_Client:
             self.logger.warning("Pandas not installed, cannot convert to DataFrame")
             raise ImportError("Please install pandas: pip install pandas")
 
+
+    def send_to_kafka(self, data: List[Dict], topic: str = "ny-traffic-events") -> int:
+        """
+        Send data to Kafka topic
+        
+        Args:
+            data (List[Dict]): Data to send
+            topic (str): Kafka topic name
+            
+        Returns:
+            int: Number of records sent
+            
+        Raises:
+            RuntimeError: If sending to Kafka fails
+        """
+        if not data:
+            self.logger.warning("No data to send to Kafka")
+            return 0
+        
+        try:
+            # Create Kafka producer
+            producer = KafkaProducer(
+                bootstrap_servers=['localhost:9092'],
+                value_serializer=event_serializer
+            )
+            
+            # Send each record individually
+            
+            for record in data:
+                event = event_from_row(record)
+                producer.send(topic, value=event)
+            
+            # Flush to ensure all messages are sent
+            producer.flush()
+            
+            # Close producer connection
+            producer.close()
+            
+            self.logger.info(f"Successfully sent {len(data)} records to Kafka topic '{topic}'")
+            return len(data)
+            
+        except Exception as e:
+            error_msg = f"Failed to send data to Kafka: {str(e)}"
+            self.logger.error(error_msg)
+            raise RuntimeError(error_msg)
+
 def main():
     while True:
         try:
@@ -168,7 +216,7 @@ def main():
             if ny_traffic_events:
                 api_handler.save_to_local(ny_traffic_events)
                 try:
-                    # api_handler.send_to_kafka(ny_traffic_events)
+                    api_handler.send_to_kafka(ny_traffic_events)
                     print(f"Successfully processed, saved, and sent {len(ny_traffic_events)} records to Kafka")
                 except Exception as e:
                     print(f"Saved data locally but failed to send to Kafka: {str(e)}")
