@@ -6,14 +6,14 @@
 
 with eventdata as (
   select *,
-    row_number() over(partition by RoadwayName, ingestion_time, EventType) as rn
+    row_number() over(partition by ID, LastUpdated, EventType ORDER BY ID, ingestion_time DESC) as rn
   from {{ source('raw', 'ny_traffic_events') }}
   where RoadwayName is not null
 )
 
 select
   -- Identifier
-  {{ dbt_utils.generate_surrogate_key(['ID', 'ingestion_time', 'EventType']) }} as event_id,
+  {{ dbt_utils.generate_surrogate_key(['ID', 'LastUpdated', 'EventType']) }} as event_id,
   ID,
 
   -- Source information
@@ -42,7 +42,7 @@ select
   {{ dbt_date.from_unixtimestamp('Reported') }} as Reported,
   {{ dbt_date.from_unixtimestamp('StartDate') }} as StartDate,
   {{ dbt_date.from_unixtimestamp('PlannedEndDate') }} as PlannedEndDate,
-  
+
   -- Processing time-related
   ingestion_time,
   processing_time
