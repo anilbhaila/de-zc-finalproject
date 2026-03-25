@@ -1,0 +1,60 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ env_var('DBT_DATABASE', 'dtc-ab-de-2026') }}"
+    schema: "{{ env_var('DBT_SCHEMA', 'ny_traffic_events_raw') }}"
+    tables:
+      - name: ny_traffic_events
+        description: "Raw NY traffic events data from 511ny API"
+        columns:
+          - name: ID
+            description: "A unique identifier. This is a required field and should be an integer."
+          - name: SourceId
+            description: "The source id of the event."
+          - name: Organization
+            description: "The name of the organization that provided this event."
+          - name: RoadwayName
+            description: "The roadway on which the event occurred."
+          - name: DirectionOfTravel
+            description: "One of the following directions of travel: None, All Directions, Northbound, Eastbound, Southbound, Westbound, Inbound, Outbound, Both Directions."
+          - name: Description
+            description: "A summary of the event details which often includes type of event, dates and lanes affected."
+          - name: Reported
+            description: "The date the event was reported in Unix time. "
+          - name: LastUpdated
+            description: "The date the event's details were last updated in Unix time."
+          - name: StartDate
+            description: "The start date of the event in Unix time."
+          - name: PlannedEndDate
+            description: "The date the event is expected to end in Unix time. "
+          - name: LanesAffected
+            description: "Describes the lane or number of lanes affected by the event. For example: all lanes."
+          - name: Latitude
+            description: "The latitude describing the location. Format: double between -90 and 90."
+          - name: Longitude
+            description: "The longitude describing the location. Format: double between -180 and 180."
+          - name: LatitudeSecondary
+            description: "Secondary latitude."
+          - name: LongitudeSecondary
+            description: "Secondary longitude."
+          - name: EventType
+            description: "The type of event. One of the following: roadwork, closures or accidentsAndIncidents."
+          - name: EventSubType
+            description: "A more detailed and descriptive event type. No fixed list of sub types."
+          - name: IsFullClosure
+            description: "True if all lanes are blocked for this event."
+          - name: Severity
+            description: "Describes the severity of the event with default value of Unknown."
+          - name: Comment
+            description: "Extra information about the event"
+          - name: Recurrence
+            description: "Describes the schedule of the event."
+          - name: County
+            description: "The name of the county."
+          - name: State
+            description: "The name of the state."
+          - name: ingestion_time
+            description: "Time when data was ingested"
+          - name: processing_time
+            description: "Time when data was processed"
