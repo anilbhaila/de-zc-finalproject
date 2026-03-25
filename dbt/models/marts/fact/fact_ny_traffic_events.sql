@@ -1,0 +1,31 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
+SELECT
+    event_id,
+    ID,
+    SourceId,
+    Organization,
+    Latitude,
+    Longitude,
+    LatitudeSecondary,
+    LongitudeSecondary,
+    RoadwayName,
+    DirectionOfTravel,
+    County,
+    State,
+    lanesAffected,
+    IsFullClosure,
+    EventType,
+    EventSubType,
+    Severity,
+    Reported,
+    LastUpdated,
+    StartDate,
+    PlannedEndDate,
+    ingestion_time,
+    processing_time
+FROM {{ ref('stg_ny_traffic_events') }}
