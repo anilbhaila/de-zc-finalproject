@@ -14,7 +14,7 @@ class NY_Traffic_Events_API_Client:
     """
     Client to interact with the NYC Traffic Events API.
     """
-    def __init__(self, base_url: str = "https://511ny.org/api/getevents"):
+    def __init__(self, base_url: str = "https://511ny.org/api/v2/get/event"):
         """
         Initialize NYC Traffic Events API handler
 

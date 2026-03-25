@@ -234,4 +234,9 @@ Steam Data Consumer works
 
 But Dataflow job doesn't work on above both config.
 Did lot of Google AI search and followed instruction, didn't help.
-Created Firewall Policy suggested by AI. but didn't help.      
+Created Firewall Policy suggested by AI. but didn't help.
+
+API Seems to be changed and Schema also got changed
+https://511ny.org/api/v2/get/event
+
+Adjusting Terraform
