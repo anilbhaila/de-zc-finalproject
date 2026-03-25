@@ -72,21 +72,16 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
 [
   {
     "name": "ID",
-    "type": "STRING",
+    "type": "INTEGER",
     "mode": "REQUIRED"
   },
   {
-    "name": "RegionName",
+    "name": "SourceId",
     "type": "STRING",
     "mode": "NULLABLE"
   },
   {
-    "name": "CountyName",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "Severity",
+    "name": "Organization",
     "type": "STRING",
     "mode": "NULLABLE"
   },
@@ -106,47 +101,27 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
     "mode": "NULLABLE"
   },
   {
-    "name": "Location",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "LanesAffected",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "PrimaryLocation",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "SecondaryLocation",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "FirstArticleCity",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "SecondCity",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "EventType",
-    "type": "STRING",
-    "mode": "NULLABLE"
-  },
-  {
-    "name": "EventSubType",
-    "type": "STRING",
+    "name": "Reported",
+    "type": "INTEGER",
     "mode": "NULLABLE"
   },
   {
     "name": "LastUpdated",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "StartDate",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "PlannedEndDate",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "LanesAffected",
     "type": "STRING",
     "mode": "NULLABLE"
   },
@@ -161,17 +136,57 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
     "mode": "NULLABLE"
   },
   {
-    "name": "PlannedEndDate",
+    "name": "LatitudeSecondary",
+    "type": "FLOAT",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "LongitudeSecondary",
+    "type": "FLOAT",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "EventType",
     "type": "STRING",
     "mode": "NULLABLE"
   },
   {
-    "name": "Reported",
+    "name": "EventSubType",
     "type": "STRING",
     "mode": "NULLABLE"
   },
   {
-    "name": "StartDate",
+    "name": "IsFullClosure",
+    "type": "BOOL",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Severity",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Comment",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "EncodedPolyline",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Recurrence",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "County",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "State",
     "type": "STRING",
     "mode": "NULLABLE"
   },

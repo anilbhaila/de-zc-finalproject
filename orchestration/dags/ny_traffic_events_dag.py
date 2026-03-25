@@ -52,8 +52,8 @@ def ny_traffic_events_pipeline():
         api_key = Variable.get("ny_traffic_api_key")
         
         # API parameters
-        base_url = 'https://511ny.org/api/'
-        endpoint = "getevents"
+        base_url = 'https://511ny.org/api/v2/get/'
+        endpoint = "event"
         query_string = f"?key={api_key}&format=json"
         url = base_url + endpoint + query_string
         
@@ -71,28 +71,33 @@ def ny_traffic_events_pipeline():
                 # Add timestamp
                 clean_data = {}
                 clean_data['ID'] = event.get('ID', str(uuid.uuid4()))
-                clean_data['ingestion_time'] = timestamp
-                clean_data['RegionName'] = event.get('RegionName', 'Unknown')
-                clean_data['CountyName'] = event.get('CountyName', 'Unknown')
-                clean_data['Severity'] = event.get('Severity', 'Unknown')
+                clean_data['SourceId'] = event.get('SourceId', 'Unknown')
+                clean_data['Organization'] = event.get('Organization', 'Unknown')
                 clean_data['RoadwayName'] = event.get('RoadwayName', 'Unknown')
                 clean_data['DirectionOfTravel'] = event.get('DirectionOfTravel', 'Unknown')
                 clean_data['Description'] = event.get('Description', 'Unknown')
-                clean_data['Location'] = event.get('Location', 'Unknown')
-                clean_data['LanesAffected'] = event.get('LanesAffected', 'Unknown')
-                clean_data['PrimaryLocation'] = event.get('PrimaryLocation', 'Unknown')
-                clean_data['SecondaryLocation'] = event.get('SecondaryLocation', 'Unknown')
-                clean_data['FirstArticleCity'] = event.get('FirstArticleCity', 'Unknown')
-                clean_data['SecondCity'] = event.get('SecondCity', 'Unknown')
-                clean_data['EventType'] = event.get('EventType', 'Unknown')
-                clean_data['EventSubType'] = event.get('EventSubType', 'Unknown')
+                clean_data['DirectionOfTravel'] = event.get('DirectionOfTravel', 'Unknown')
+                clean_data['Reported'] = event.get('Reported', 'Unknown')
                 clean_data['LastUpdated'] = event.get('LastUpdated', 'Unknown')
+                clean_data['StartDate'] = event.get('StartDate', 'Unknown')
+                clean_data['PlannedEndDate'] = event.get('PlannedEndDate', 'Unknown')
+                clean_data['LanesAffected'] = event.get('LanesAffected', 'Unknown')
                 clean_data['Latitude'] = event.get('Latitude', 'Unknown')
                 clean_data['Longitude'] = event.get('Longitude', 'Unknown')
-                clean_data['PlannedEndDate'] = event.get('PlannedEndDate', 'Unknown')
-                clean_data['Reported'] = event.get('Reported', 'Unknown')
-                clean_data['StartDate'] = event.get('StartDate', 'Unknown')
+                clean_data['LatitudeSecondary'] = event.get('LatitudeSecondary', 'Unknown')
+                clean_data['LongitudeSecondary'] = event.get('LongitudeSecondary', 'Unknown')
+                clean_data['EventType'] = event.get('EventType', 'Unknown')
+                clean_data['EventSubType'] = event.get('EventSubType', 'Unknown')
+                clean_data['IsFullClosure'] = event.get('IsFullClosure', 'Unknown')
+                clean_data['Severity'] = event.get('Severity', 'Unknown')
+                clean_data['Comment'] = event.get('Comment', 'Unknown')
+                clean_data['EncodedPolyline'] = event.get('EncodedPolyline', 'Unknown')
+                clean_data['Recurrence'] = event.get('Recurrence', 'Unknown')
+                clean_data['County'] = event.get('County', 'Unknown')
+                clean_data['State'] = event.get('State', 'Unknown')
                 clean_data['processing_time'] = event.get('processing_time', None)
+                clean_data['ingestion_time'] = timestamp
+                
                 event.clear()
                 event.update(clean_data)
 
@@ -149,27 +154,30 @@ def ny_traffic_events_pipeline():
         # Create schema file
         schema_json = {
             "BigQuery Schema": [
-                {"name": "ID", "type": "STRING", "mode": "REQUIRED"},
-                {"name": "RegionName", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "CountyName", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "Severity", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "ID", "type": "INTEGER", "mode": "REQUIRED"},
+                {"name": "SourceId", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "Organization", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "RoadwayName", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "DirectionOfTravel", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "Description", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "Location", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "Reported", "type": "INTEGER", "mode": "NULLABLE"},
+                {"name": "LastUpdated", "type": "INTEGER", "mode": "NULLABLE"},
+                {"name": "StartDate", "type": "INTEGER", "mode": "NULLABLE"},
+                {"name": "PlannedEndDate", "type": "INTEGER", "mode": "NULLABLE"},
                 {"name": "LanesAffected", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "PrimaryLocation", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "SecondaryLocation", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "FirstArticleCity", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "SecondCity", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "EventType", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "EventSubType", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "LastUpdated", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "Latitude", "type": "FLOAT", "mode": "NULLABLE"},
                 {"name": "Longitude", "type": "FLOAT", "mode": "NULLABLE"},
-                {"name": "PlannedEndDate", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "Reported", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "StartDate", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "LatitudeSecondary", "type": "FLOAT", "mode": "NULLABLE"},
+                {"name": "LongitudeSecondary", "type": "FLOAT", "mode": "NULLABLE"},
+                {"name": "EventType", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "EventSubType", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "IsFullClosure", "type": "BOOLEAN", "mode": "NULLABLE"},
+                {"name": "Severity", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "Comment", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "EncodedPolyline", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "Recurrence", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "County", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "State", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "ingestion_time", "type": "TIMESTAMP", "mode": "REQUIRED"},
                 {"name": "processing_time", "type": "TIMESTAMP", "mode": "NULLABLE"}
             ]
