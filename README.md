@@ -152,6 +152,7 @@ Output:
 
 
  Command:
+ > docker ps -a
  > docker exec -it <RedPanda Container ID> rpk topic delete ny-traffic-events
  > docker exec -it 777de7adc127 rpk topic delete ny-traffic-events
 
@@ -218,25 +219,19 @@ start_gcs_to_bigquery job submitted to google Dataflow Jobs successfully but due
 clean_duplicate_data successful
 
 
-event['RegionName'] = event.get('RegionName', 'Unknown')
-event['CountyName'] = event.get('CountyName', 'Unknown')
-event['Severity'] = event.get('Severity', 'Unknown')
-event['RoadwayName'] = event.get('RoadwayName', 'Unknown')
-event['DirectionOfTravel'] = event.get('DirectionOfTravel', 'Unknown')
-event['Description'] = event.get('Description', 'Unknown')
-event['Location'] = event.get('Location', 'Unknown')
-event['LanesAffected'] = event.get('LanesAffected', 'Unknown')
-event['LanesStatus'] = event.get('LanesStatus', 'Unknown')
-event['PrimaryLocation'] = event.get('PrimaryLocation', 'Unknown')
-event['SecondaryLocation'] = event.get('SecondaryLocation', 'Unknown')
-event['FirstArticleCity'] = event.get('FirstArticleCity', 'Unknown')
-event['SecondCity'] = event.get('SecondCity', 'Unknown')
-event['EventType'] = event.get('EventType', 'Unknown')
-event['EventSubType'] = event.get('EventSubType', 'Unknown')
-event['LastUpdated'] = event.get('LastUpdated', 'Unknown')
-event['Latitude'] = event.get('Latitude', 'Unknown')
-event['Longitude'] = event.get('Longitude', 'Unknown')
-event['PlannedEndDate'] = event.get('PlannedEndDate', 'Unknown')
-event['Reported'] = event.get('Reported', 'Unknown')
-event['StartDate'] = event.get('StartDate', 'Unknown')
-event['processing_time'] = event.get('processing_time', None)
+# ny_traffic_events_dag_kafka.py
+fetch_and_send_to_kafka successful
+kafka_to_gcs_dataflow Job Submitted Successfully but Error lunching in GCP.
+
+Tried to use Internal IP/External IP in Redpanda docker-compose config. Still not able to solve the issue.
+For Localhost: test_kafka_consumer_localhost.py
+- PLAINTEXT://de-ab-project-redpanda:29092,OUTSIDE://localhost:9092
+Stream Data Consumer works
+
+For Internal IP: test_kafka_consumer_Internal_IP.py
+- PLAINTEXT://de-ab-project-redpanda:29092,OUTSIDE://10.206.0.3:9092
+Steam Data Consumer works
+
+But Dataflow job doesn't work on above both config.
+Did lot of Google AI search and followed instruction, didn't help.
+Created Firewall Policy suggested by AI. but didn't help.      
