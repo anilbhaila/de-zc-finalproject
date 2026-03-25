@@ -33,19 +33,13 @@ select
   State,
   lanesAffected,
   IsFullClosure,
-  
-  -- Event details
-  -- Reported,
-  -- LastUpdated,
-  -- StartDate,
-  -- PlannedEndDate,
+  LastUpdated,
   EventType,
   EventSubType,
   Severity,
 
   -- UNIX timestamps converted to DATETIME
   {{ dbt_date.from_unixtimestamp('Reported') }} as Reported,
-  {{ dbt_date.from_unixtimestamp('LastUpdated') }} as LastUpdated,
   {{ dbt_date.from_unixtimestamp('StartDate') }} as StartDate,
   {{ dbt_date.from_unixtimestamp('PlannedEndDate') }} as PlannedEndDate,
   

@@ -78,7 +78,11 @@ def ny_traffic_events_pipeline():
                 clean_data['Description'] = event.get('Description', 'Unknown')
                 clean_data['DirectionOfTravel'] = event.get('DirectionOfTravel', 'Unknown')
                 clean_data['Reported'] = event.get('Reported', 'Unknown')
-                clean_data['LastUpdated'] = event.get('LastUpdated', 'Unknown')
+                unix_time = event.get('LastUpdated', None)
+                if unix_time is not None:
+                    timestamp = datetime.fromtimestamp(unix_time).isoformat()    
+
+                clean_data['LastUpdated'] = timestamp
                 clean_data['StartDate'] = event.get('StartDate', 'Unknown')
                 clean_data['PlannedEndDate'] = event.get('PlannedEndDate', 'Unknown')
                 clean_data['LanesAffected'] = event.get('LanesAffected', 'Unknown')
@@ -161,7 +165,7 @@ def ny_traffic_events_pipeline():
                 {"name": "DirectionOfTravel", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "Description", "type": "STRING", "mode": "NULLABLE"},
                 {"name": "Reported", "type": "INTEGER", "mode": "NULLABLE"},
-                {"name": "LastUpdated", "type": "INTEGER", "mode": "NULLABLE"},
+                {"name": "LastUpdated", "type": "TIMESTAMP", "mode": "REQUIRED"},
                 {"name": "StartDate", "type": "INTEGER", "mode": "NULLABLE"},
                 {"name": "PlannedEndDate", "type": "INTEGER", "mode": "NULLABLE"},
                 {"name": "LanesAffected", "type": "STRING", "mode": "NULLABLE"},

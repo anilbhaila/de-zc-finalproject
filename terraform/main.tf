@@ -65,7 +65,7 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
 
   time_partitioning {
     type  = "DAY"
-    field = "ingestion_time"
+    field = "LastUpdated"
   }
 
   schema = <<EOF
@@ -107,8 +107,8 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
   },
   {
     "name": "LastUpdated",
-    "type": "INTEGER",
-    "mode": "NULLABLE"
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED"
   },
   {
     "name": "StartDate",
