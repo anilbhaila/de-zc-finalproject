@@ -52,3 +52,51 @@ Data Flow Explanation:
 4. Data Modeling: Our dbt Cloud Scheduled Job performs further data transformation and Modeling in BigQuery and store it back to BigQuery dataset to be used for data visualization
 
 5. Data visualization: We use the data transformed by dbt Cloud in to Looker Studio for data visualization.
+## Snapshots
+Data Extraction Task Scheduled in Airflow
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/TaskScheduledInAirFlow.png)
+
+Airflow Orchestration
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/AirflowOrchestration.png)
+
+Extracted JSON Data Stored in Data Lake (GCS)
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/JSONStoredInGCS.png)
+
+Airflow Task Submit Dataflow batch processing Job
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/Dataflow%20Job.png)
+
+Data Storage in BigQuery
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/BigQuery%20Tables.png)
+
+dbt Cloud Data Modeling
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/lineage%20diagram.png)
+
+dbt job Scheduled
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/dbt%20job%20scheduled.png)
+
+dbt job run
+![App Screenshot]
+https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/dbt%20job.png
+
+BigQuery Report Tables
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/rpt_ny_traffic_event_county.png)
+
+Dashboard 1
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/Dashboard%201.png)
+
+Dashboard 2
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/DashBoard%202.png)
+
+Dashboard 3
+![App Screenshot]
+(https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/Dashboard%203.png)
