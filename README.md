@@ -39,14 +39,16 @@ Looker Studio is used to visualize our New York Traffic Events data in real time
 
 
 
-## Documentation
-
-[Documentation](https://linktodocumentation)
-
-
-
-## Screenshots
-
+## Project Architecture
 ![App Screenshot](https://github.com/anilbhaila/de-zc-finalproject/blob/main/images/ProjectArchitecture.png)
 
+Data Flow Explanation:
+1. Data Extraction: Our Python API Client executed inside Airflow task regurly fetches the latest NY Traffic Events Data from 511ny.org API. format.
 
+2. Data Storage: The Data Extracted from the API are stored into GCS Bucket (Data Lake) in a JSON file with a scheduled task.
+
+3. Batch Processing: Airflow Task also submit Batch Processing task to Google Dataflow Job. This Batch Processing Job will process JSON Files from Data Lake (GCS) and do some initial transformation then the structured data is stored into Dataware House (BigQuery)
+
+4. Data Modeling: Our dbt Cloud Scheduled Job performs further data transformation and Modeling in BigQuery and store it back to BigQuery dataset to be used for data visualization
+
+5. Data visualization: We use the data transformed by dbt Cloud in to Looker Studio for data visualization.
