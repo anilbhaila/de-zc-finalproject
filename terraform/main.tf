@@ -203,10 +203,3 @@ resource "google_bigquery_table" "ny_traffic_events_table" {
 ]
 EOF
 }
-
-# Load Dataflow job script into GCS
-resource "google_storage_bucket_object" "dataflow_job_file" {
-  name   = "jobs/kafka_to_gcs_pipeline.py"
-  bucket = google_storage_bucket.ny_traffic_events_bucket.name
-  source = "../src/dataflow/kafka_to_gcs_pipeline.py"
-}

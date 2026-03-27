@@ -14,11 +14,6 @@ output "processed_dataset" {
 }
 
 
-output "dataflow_job_file" {
-  value       = google_storage_bucket_object.dataflow_job_file.name
-  description = "The Dataflow job file path in GCS"
-}
-
 output "temp_location" {
   value       = "${google_storage_bucket.ny_traffic_events_bucket.name}/temp"
   description = "The GCS temp location for Dataflow jobs"

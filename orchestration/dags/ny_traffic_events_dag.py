@@ -25,7 +25,7 @@ default_args = {
 @dag(
     default_args=default_args,
     description='NY Traffic Events Pipeline',
-    schedule_interval=timedelta(minutes=10),  # Runs every 10 minutes
+    schedule_interval=timedelta(minutes=int(Variable.get("task_schedule_interval", default_var=10))),
     start_date=datetime(2025, 3, 28),
     catchup=False,
     tags=['Real-Time','NY', 'Traffic', 'Events'],
